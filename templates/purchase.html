@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{% static 'images\icon.png' %}" type="image/png">
+    <title>TimeElegance | Purchase</title>
+</head>
+<body class="container min-h-screen bg-black">
+    
+    <nav class="p-4 flex">
+        <a href="{% url 'homepage' %}" class="font-serif text-2xl text-white">TimeElegance</a>
+        <a href="{% url 'login' %}" class="ml-auto text-gray-400 hover:text-white cursor-pointer">LogOut</a>
+    </nav>
+
+    <h1 class="font-bold text-white text-xl mb-4 ml-32 mt-8">{{ product.name }}</h1>
+    <div class="flex items-start mt-8 ml-32 space-x-8">
+        <img src="{{ product.products_images.url }}" alt="{{ product.name }}" class="h-52 object-cover rounded-lg shadow-md hover:cursor-none transform transition-transform duration-300 hover:scale-110" />
+        <div>
+            <p class="text-white text-left font-medium mt-6">{{ product.description }}</p>
+            <h5 class="text-white mt-4">{{product.vendor}}</h5>
+            <br>
+            <span class="text-white font-bold text-xl">Price : {{ product.price }} INR</span>
+        </div>
+    </div>
+    <a class="text-black bg-white text-xl font-medium rounded-lg px-4 ml-36 text-black text-xl bg-white rounded-lg px-4 mt-2 hover:bg-black hover:text-white font-medium cursor-pointer">Buy Now</a>
+    
+    <footer class="text-white font-bold text-xl text-center py-32 hover: cursor-default">
+        <p>&copy; 2024 TimeElegance</p>
+    </footer>
+</body>
+</html>

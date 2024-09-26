@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{% static 'images\icon.png' %}" type="image/png">
+    <title>TimeElegance | SignUp</title>
+
+</head>
+<body >
+    <div class="container min-h-screen bg-gray-100 " style="background-image: url('/Shopy/Frontend/watch3.jpg');">
+        <nav class="p-6 bg-black flex">
+            <a href="{% url 'homepage' %}" class=" text-2xl text-left text-white font-serif hover: cursor-pointer">TimeElegance</a>
+            <a href="{% url 'login' %}" class=" ml-auto text-gray-400 hover:text-white cursor-pointer">Login | </a>
+            <i class="fa-solid fa-user"></i>
+            <a href="{% url 'about' %}" class=" text-gray-400 hover:text-white cursor-pointer">Contact Us </a>
+        </nav>
+
+        <div class="flex items-center justify-center h-screen ">
+            <div class="bg-white p-8 shadow-md rounded-lg max-w-md w-full">
+                
+                <form class="space-y-4" action="" method="POST">
+                    {% csrf_token %}
+
+                    {% if error_message %}
+                    <div style="color: red;text-align: center;">
+                        <h2>{{error_message}}</h2>
+                    </div>
+                    {% endif %}
+
+                    <h2 class="text-xl text-black font-medium">Create Account</h2>
+                    <div>
+                        <label for="usernaem" class="block mb-1 font-medium">Username</label>
+                        <input id="username" name="username" type="text" class="w-full p-2 border border-black rounded-lg" placeholder="Enter the username">
+                    </div>
+                    <div>
+                        <label for="password" class="block mb-1 font-medium">Password</label>
+                        <input id="password" name="password" type="password" class="w-full p-2 border border-black rounded-lg" placeholder="Entern the password">
+                    </div>
+                    <div>
+                        <label for="repeatPassword" class="block mb-1 font-medium">Re-Enter the password</label>
+                        <input id="repeatPassword" name="repeatPassword" type="password" class="w-full p-2 border border-black rounded-lg" placeholder="Re-Enter the password">
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-1 font-medium">E-Mail</label>
+                        <input id="email" name="email" type="email" class="w-full p-2 border border-black rounded-lg" placeholder="Enter the E-mail">
+                    </div>
+                    <div class="text-center">
+                        <button class="text-white text-center bg-black p-3 rounded-lg w-full">SignUp</button>
+                    </div>
+
+                </form>  
+                
+                <a class="text-center text-blue hover:underline cursor-pointer block mt-4" href="{% url 'login' %}">Already User</a>    
+            
+            </div>
+
+        </div>
+        
+        <footer class="text-center font-bold">Copyright&copy; 2024 TimeElegance</footer>
+    </div>
+    
+</body>
+</html>

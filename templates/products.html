@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{% static 'images\icon.png' %}" type="image/png">
+    <title>TimeElegance | Products</title>
+</head>
+<body class="container min-h-screen bg-black">
+    <nav class="bg-black p-7 flex">
+        <a href="{% url 'homepage' %}" class="text-white font-serif text-2xl hover: cursor-pointer">TimeElegance</a>
+        <a href="{% url 'category' %}" class=" ml-auto text-gray-400 hover:text-white cursor-pointer">Collections |</a>
+        <a href="{% url 'login' %}" class=" mx-1 text-gray-400 hover:text-white cursor-default">LogOut</a>
+    </nav>
+        
+    <!--Displaying products-->
+    <div class="container bg-black mx-auto p-8">
+        <div class="flex justify-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {% for item in products %}
+                    <div class="flex flex-col items-center rounded-lg p-8">
+                        <img class="w-32 h-32 object-cover rounded-lg mb-4 hover: cursor-pointer transform transition-transform duration-300 hover:scale-110" src="{{ item.products_images.url }}" alt="{{ item.name }}">
+                        <a class="text-xl font-bold text-white hover:cursor-pointer hover:cursor-default">{{ item.name }}</a>
+                        <a href="{% url 'purchase' item.category.name|urlencode item.name|urlencode %}" class="text-black text-xl bg-white rounded-lg px-4 mt-2 hover:bg-black hover:text-white font-medium cursor-pointer">Purchase</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

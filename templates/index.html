@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{% static 'images\icon.png' %}" type="image/png">
+    <title>TimeElegance | Home</title>
+</head>
+<body>
+    <div class="container min-h-screen">
+        <nav class="bg-black p-6 flex">
+            <h1 class="font-serif text-white text-2xl hover: cursor-none">TimeElegance</h1>
+            
+            {% if username %}
+                <a class=" ml-auto text-white hover:text-gray-300 cursor-default">Welcome {{username}} |</a>
+            {% else %}
+                <a class=" ml-auto text-white hover:text-gray-300 cursor-pointer">Welcome guest |</a> 
+            {% endif %}
+
+            <a href="{% url 'category' %}" class=" mx-2 text-white hover:text-gray-400 cursor-pointer">Collections |</a>
+            <!--mx-2 is for space between-->
+            
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'signup' %}"class=" text-white hover:text-gray-400 cursor-pointer"> SignUp |</a>
+            {% endif %}
+            
+            <a href="{% url 'about' %}"class=" mx-2 text-white hover:text-gray-400 cursor-pointer"> About Us |</a>
+
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'login' %}" class=" text-white hover:text-gray-400 cursor-pointer">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class=" text-white hover:text-gray-400 cursor-pointer">Login</a>
+            {% endif %}
+        </nav>
+    
+        <div class="justify-center grid place-items-center mt-10">
+            <input id="searchbar" type="text" class="w-96 p-2 border border-black rounded-md" placeholder="Search Your Time">
+        </div>
+
+        <!-- Image Slider Section -->
+        <div class="relative w-full max-w-4xl mx-auto mt-10 overflow-hidden rounded-md">
+            <div id="slider" class="flex transition-transform duration-700 ease-in-out">
+                <img src="{% static 'images\jacobco_bugatti.webp' %}" class="w-full h-80 object-cover" alt="Hublot Classic Fusion">
+                <img src="{% static 'images\watches1.webp' %}" class="w-full h-80 object-cover" alt="Jacob&Co Bugatti Chiron Tourbillon">
+                <img src="{% static 'images\pp_slider2.jpg' %}" class="w-full h-80 object-cover" alt="Audemars Piguet Royal Oak Offshore">
+                <img src="{% static 'images\hublot_slider5.jpg' %}" class="w-full h-80 object-cover" alt="Audemars Piguet Royal Oak Offshore">
+            </div>
+
+            <!-- Slider Navigation -->
+            <button id="prev" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2">
+                &#10094;
+            </button>
+            <button id="next" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2">
+                &#10095;
+            </button>
+        </div>
+
+        <br>
+
+        <h2 class="text-2xl font-bold text-black mx-10 hover:cursor-none">Time of the month</h2>
+        <div class="flex justify-center mt-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                <!--Products-->
+                <div class="flex flex-col items-center border border-black rounded-md p-4 hover:bg-black cursor-none">
+                    <img class=" w-32 h-32 object-cover" src="{% static 'images\hublot2_cat.jpeg' %}">
+                    <a href="{% url 'category' %}" class="text-xl font-medium text-black hover:text-white cursor-pointer">Hublot Classic Fusion</a>
+                </div>
+
+                <div class="flex flex-col items-center border border-black rounded-md p-4 hover:bg-black cursor-none">
+                    <img class="w-32 h-32 object-cover" src="{% static 'images\jacobco_bugatti.webp' %}">
+                    <a href="{% url 'category' %}" class="text-xl font-medium text-black hover:text-white cursor-pointer">Jacob&Co Bugatti Chiron Tourbillon</a>
+                </div>
+
+                <div class="flex flex-col items-center border border-black rounded-md p-4 hover:bg-black cursor-none">
+                    <img class="w-32 h-32 object-cover" src="{% static 'images\AP.jpg' %}">
+                    <a href="{% url 'category' %}" class="text-xl font-medium text-black hover:text-white cursor-pointer">Audemars Piguet Royal Oak Offshore</a>
+                </div>
+            
+            </div>
+
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <footer class="text-center text-black font-bold hover: cursor-default">Copyright&copy; 2024 TimeElegance</footer>
+
+    <script>
+        // JavaScript for Slider Navigation
+        const slider = document.getElementById('slider');
+        const images = slider.children;
+        const totalImages = images.length;
+        let currentIndex = 0;
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalImages;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        });
+    </script>
+    
+</body>
+</html>
