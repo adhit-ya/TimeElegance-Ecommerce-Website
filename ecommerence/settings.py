@@ -126,6 +126,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+PAYPAL_CLIENT_ID = 'AeDhhBp0IphF89hU5uKxOTZmePcbtcnWfxvg7nTdEcTtnTrw_xLahimtkGJi-9DKVu7Tn77q-zwGIY5_'
+PAYPAL_CLIENT_SECRET = 'EMMKFb2cZKYI55WPR69zVb4vDg2nnT8wFmULhiKTmYFApMsCWkoj-FZGZMdm1wBF9cN1p7hUYENaZmUW'
+PAYPAL_MODE = 'sandbox'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

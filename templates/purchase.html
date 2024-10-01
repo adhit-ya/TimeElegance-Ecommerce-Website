@@ -26,7 +26,7 @@
             <span class="text-white font-bold text-xl">Price : {{ product.price }} INR</span>
         </div>
     </div>
-    <a class="text-black bg-white text-xl font-medium rounded-lg px-4 ml-36 text-black text-xl bg-white rounded-lg px-4 mt-2 hover:bg-black hover:text-white font-medium cursor-pointer">Buy Now</a>
+    <a href="{% url 'create_payment' %}" class="text-black bg-white text-xl font-medium rounded-lg px-4 ml-36 text-black text-xl bg-white rounded-lg px-4 mt-2 hover:bg-black hover:text-white font-medium cursor-pointer">Buy Now</a>
     
     <footer class="text-white font-bold text-xl text-center py-32 hover: cursor-default">
         <p>&copy; 2024 TimeElegance</p>

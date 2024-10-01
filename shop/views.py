@@ -3,6 +3,19 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from .models import *
 from urllib.parse import unquote
+from django.http import HttpResponseRedirect
+from django.conf import settings
+from django.urls import reverse
+import paypalrestsdk
+import logging
+
+
+
+paypalrestsdk.configure({
+    "mode": settings.PAYPAL_MODE,
+    "client_id": settings.PAYPAL_CLIENT_ID,
+    "client_secret": settings.PAYPAL_CLIENT_SECRET,
+})
 
 
 def Home(request):
@@ -77,3 +90,39 @@ def user_login(request):
             return render(request, 'login.html', {'error_message': error_message})
     
     return render(request, 'login.html')
+
+
+def create_payment(request):
+    payment = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"},
+        "redirect_urls": {
+            "return_url": request.build_absolute_uri(reverse('paypal_return')),
+            "cancel_url": request.build_absolute_uri(reverse('paypal_cancel'))},
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": "Luxury Watch",
+                    "sku": "12345",
+                    "price": "500.00",  # Example price
+                    "currency": "USD",
+                    "quantity": 1}]},
+            "amount": {
+                "total": "500.00",
+                "currency": "USD"},
+            "description": "Purchase of Luxury Watch"}]})
+
+    if payment.create():
+        for link in payment.links:
+            if link.rel == "approval_url":
+                return HttpResponseRedirect(link.href)
+    else:
+        logging.error(payment.error)
+        return HttpResponseRedirect("Error creating payment")
+    
+def paypal_return(request):
+    return HttpResponseRedirect("Payment successful. Your watch will be delivered soon!")
+
+def paypal_cancel(request):
+    return HttpResponseRedirect("Payment canceled. Please try again.")
